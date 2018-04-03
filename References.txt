@@ -1,0 +1,10 @@
+
+References:
+===========
+https://www.digitalocean.com/community/tutorials/how-to-install-nagios-4-and-monitor-your-servers-on-ubuntu-14-04
+https://help.ubuntu.com/lts/serverguide/nagios.html
+http://www.unixmen.com/how-to-install-nagios-core-4-1-1-in-ubuntu-15-10/
+https://exchange.nagios.org/directory/Plugins/
+https://www.vanstechelman.eu/linux/nagios_check_bandwidth_usage_plugin
+http://loginroot.com/bandwidth-monitoring-script-for-nagios-centos-bw_watch-sh/
+http://serverfault.com/questions/460385/monitor-remote-ubuntu-servers-bandwidth-usage-using-nagios
