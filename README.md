@@ -32,6 +32,7 @@ NOTE: Here infics is my nagios server hostname so i renamed localhost_nagios2.cf
 *STEP 3:* Replace localhost with * in the /etc/nagios3/conf.d/hostgroups_nagios2.cfg file at line 14,21, 28.
 
 *STEP 4:* Place the script check_bandwidth in /usr/lib/nagios/plugins/ folder
+        
         chmod +x check_bandwidth
 
 *STEP 5:* You should store the following text by creating a file in /etc/nagios-plugins/config/bandwidth.cfg
