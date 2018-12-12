@@ -7,7 +7,7 @@ Nagios Server [Server node which monitors client machines]
  * IP: 172.27.3.77
  * Hostname: infics [Ensure you have set proper hostname to the server]
 
-*STEP 1:*
+### STEP 1:
 
     sudo apt-get update -y
 
@@ -19,7 +19,7 @@ You will be asked to enter a password for the nagiosadmin user.
 You can access the nagios UI in webbrowser using http://172.27.3.77/nagios3
 Login with nagiosadmin and its password which was set earlier.
 
-*STEP 2:*
+### STEP 2:
 
 Rename localhost to hostname of your server
 
@@ -29,16 +29,16 @@ Rename localhost to hostname of your server
 NOTE: Here infics is my nagios server hostname so i renamed localhost_nagios2.cfg to infics.cfg file and properly replaced the hostname as shown below:
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/infics_cfg_initial.JPG)
 
-*STEP 3:* Replace localhost with * in the /etc/nagios3/conf.d/hostgroups_nagios2.cfg file at line 14,21, 28.
+### STEP 3: Replace localhost with * in the /etc/nagios3/conf.d/hostgroups_nagios2.cfg file at line 14,21, 28.
 
-*STEP 4:* Place the script check_bandwidth in /usr/lib/nagios/plugins/ folder
+### STEP 4: Place the script check_bandwidth in /usr/lib/nagios/plugins/ folder
         
         chmod +x check_bandwidth
 
-*STEP 5:* You should store the following text by creating a file in /etc/nagios-plugins/config/bandwidth.cfg
+### STEP 5: You should store the following text by creating a file in /etc/nagios-plugins/config/bandwidth.cfg
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/bandwidth_cfg.JPG)
 
-*STEP 6:* Define the CHECK-BANDWIDTH service as show below:
+### STEP 6: Define the CHECK-BANDWIDTH service as show below:
 
 praveen@infics:/etc/nagios3/conf.d$ cat infics.cfg
 
@@ -100,11 +100,11 @@ praveen@infics:/etc/nagios3/conf.d$ cat infics.cfg
             check_command           check_bandwidth!100!500!100!500
             }
 
-*STEP 7:* Restart the nagios daemon to enable the new configuration:
+### STEP 7: Restart the nagios daemon to enable the new configuration:
 
      sudo service nagios3 restart
 
-*STEP 8:* Access through your browser.
+### STEP 8:* Access through your browser.
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/nagios_server.JPG)
 
 To Add Client Nodes to be monitored by Nagios Server:
@@ -112,18 +112,18 @@ To Add Client Nodes to be monitored by Nagios Server:
 
 Create a host configuration file for client node. Run the below commands on Nagios Server host.
 
-*STEP 9:*
+### STEP 9:*
 
     sudo cp /etc/nagios3/conf.d/infics.cfg \
     /etc/nagios3/conf.d/infics-praveen-odl.cfg
 
-*STEP 10:*
+### STEP 10:
 Remember to replace infics-praveen-odl with the hostname of your client machine to be monitored.
 Here infics-praveen-odl is my client node's hostname. Edit the client IP too.
 
 Next, edit /etc/nagios3/conf.d/infics-praveen-odl.cfg to replace the hostname properly.
 
-*STEP 11:* Restart the nagios daemon to enable the new configuration:
+### STEP 11: Restart the nagios daemon to enable the new configuration:
 
     sudo service nagios3 restart
 
@@ -133,25 +133,25 @@ Nagios Client Machines [host to be monitored]
  * IP:172.27.3.176
  * Hostname: infics-praveen-odl
 
-*STEP 12:*
+### STEP 12:
 
     sudo apt-get update -y
 
     sudo apt-get dist-upgrade -y
 
-*STEP 13:* Reboot the node and install the below packages:
+### STEP 13: Reboot the node and install the below packages:
 
-    sudo apt install nagios-nrpe-server vnstat -y 
+    sudo apt-get install nagios-nrpe-server vnstat -y 
 
-*STEP 14:* Place the shell script check_bandwidth to path /usr/lib/nagios/plugins/
+### STEP 14: Place the shell script check_bandwidth to path /usr/lib/nagios/plugins/
     
     chmod +x check_bandwidth
 
-*STEP 15:* Then edit /etc/nagios/nrpe.cfg 
+### STEP 15: Then edit /etc/nagios/nrpe.cfg 
 
     allowed_hosts=172.27.3.77   # This is my Nagios Server IP
 
-*STEP 16:* Add below in the command definition area of npre.cfg file:
+### STEP 16: Add below in the command definition area of npre.cfg file:
 
     command[check_bandwidth]=/usr/lib/nagios/plugins/check_bandwidth 100 500 100 500
 
@@ -159,18 +159,18 @@ It resembles as below:
 
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/command_definition_nrpe_cfg.JPG)
 
-*STEP 17:* Finally, restart nagios-nrpe-server on your client machine:
+### STEP 17: Finally, restart nagios-nrpe-server on your client machine:
 
     sudo service nagios-nrpe-server restart
 
-*STEP 18:* After that, check in your browser: [Ignore the CRITICAL message as status for Disk Space which is not my priority as of now]
+### STEP 18: After that, check in your browser: [Ignore the CRITICAL message as status for Disk Space which is not my priority as of now]
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/services.JPG)
 
-*STEP 19:* To test the bandwidth usage, i started downloading a cloud image on both server & client node as shown below:
+### STEP 19: To test the bandwidth usage, i started downloading a cloud image on both server & client node as shown below:
 
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/wget_testing_cloud_image.JPG)
 
-*STEP 20:* After approximately 4-5 mins in the browser i was able to observe the CRITICAL status for CHECK-BANDWIDTH as shown below:
+### STEP 20: After approximately 4-5 mins in the browser i was able to observe the CRITICAL status for CHECK-BANDWIDTH as shown below:
 ![alt tag](https://github.com/npraveen35/Xen_API/blob/nagios/Nagios_and_client_services_critical.JPG)
 
 
